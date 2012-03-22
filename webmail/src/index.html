@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Webmail Not Enabled</title>
+	<style type="text/css">
+
+		body
+		{
+			background : white;
+			font: 12px 'Lucida Grande', LucidaGrande, Lucida, Helvetica, Arial, sans-serif;
+		}
+		
+		h2
+		{
+			font-size: 14px;
+		}
+
+	</style>
+	<script type="text/javascript">
+	
+		function closeParentFrame()
+		{
+			if ( parent && parent.document && parent.document.getElementById('right_iframe') )
+			{
+				parent.document.getElementById('right_iframe').style.border='0px';
+				parent.document.getElementById('right_iframe').style.height='0px';
+			}
+		}
+		
+	</script>
+</head>
+<body onload="closeParentFrame()">
+
+<h2>Webmail Not Enabled</h2>
+
+Webmail is not enabled for this server. Please contact your system administrator.
+
+</body>
+</html>
