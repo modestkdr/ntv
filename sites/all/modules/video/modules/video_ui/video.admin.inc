@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Provides the administration settings for the Video Drupal module.
@@ -7,7 +6,6 @@
 
 /**
  * Video transcoder admin settings
- * @return <type>
  */
 function video_transcoder_admin_settings() {
   $transcoder = new Transcoder;
@@ -19,12 +17,7 @@ function video_transcoder_admin_settings() {
  * Form API callback to validate the upload settings form.
  */
 function video_transcoder_admin_settings_validate($form, &$form_state) {
-  // check ffmpeg_wrapper module installed or not
-  if ($form_state['values']['video_convertor'] == 'video_ffmpeg_wrapper' && !module_exists('ffmpeg_wrapper')) {
-    form_set_error('video_convertor', t('You need to download and install the !ffmpeg_wrapper module to enable this option.', array('!ffmpeg_wrapper' => l(t('FFMPEG Wrapper'), 'http://drupal.org/project/ffmpeg_wrapper'))));
-  }
-
-  // add vallidations by trnacoder interface
+  // add validations by transcoder interface
   $transcoder = $form_state['values']['video_convertor'];
   $factory = new TranscoderAbstractionAbstractFactory();
   $transcoder = $factory->getProduct($transcoder);
@@ -33,7 +26,6 @@ function video_transcoder_admin_settings_validate($form, &$form_state) {
 
 /**
  * Video preset admin settings
- * @return <type>
  */
 function video_preset_admin_settings() {
   $preset = new Preset();
@@ -43,7 +35,6 @@ function video_preset_admin_settings() {
 
 /**
  * Video general admin settings
- * @return <type>
  */
 function video_general_admin_settings() {
   $form = array();
@@ -81,8 +72,7 @@ function video_general_admin_settings() {
     '#type' => 'checkbox',
     '#title' => t('Publish when conversion complete'),
     '#default_value' => variable_get('video_publish_on_complete', FALSE),
-    '#description' => t('Now this feature is fully controlled by !rules module. Download 
-      the module and configure your rules to effect when the video conversions has been completed and failed.', array('!rules' => l('Rules', 'http://drupal.org/project/rules'))),
+    '#description' => t('This feature is now fully controlled by !rules module. Download the module and configure rules to take effect when video conversions have completed or failed.', array('!rules' => l(t('Rules'), 'http://drupal.org/project/rules'))),
     '#disabled' => TRUE
   );
   return system_settings_form($form);
@@ -90,16 +80,15 @@ function video_general_admin_settings() {
 
 /**
  * Video player admin settings
- * @return <type>
  */
 function video_players_admin_settings() {
   $form = array();
   $form['extensions'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Video Extensions'),
+    '#title' => t('Video extensions'),
     '#description' => t('Here you can map specific players to each video extension type.'),
   );
-  //lets get all our supported extensions and players.
+  // lets get all our supported extensions and players.
   $extensions = video_video_extensions();
   $players = video_video_players();
   $flv_players = video_video_flv_players();
@@ -118,7 +107,7 @@ function video_players_admin_settings() {
     if (!empty($flv_players)) {
       $form['extensions']['video_extension_' . $ext . '_flash_player'] = array(
         '#type' => 'radios',
-        '#title' => t('Flash Player for') . ' ' . $ext,
+        '#title' => t('Flash player for @extension', array('@extension' => $ext)),
         '#options' => $flv_players,
         '#default_value' => variable_get('video_extension_' . $ext . '_flash_player', ''),
         '#prefix' => '<div class="admin_flv_player_wrapper" id="flv_player_' . $ext . '">',
@@ -128,7 +117,7 @@ function video_players_admin_settings() {
     else {
       $form['extensions']['video_extension_' . $ext . '_flash_player'] = array(
         '#type' => 'markup',
-        '#markup' => t('No flash players detected.<br />You need to install !swf_tools or !flowplayer.', array('!swf_tools' => l(t('SWF Tools'), 'http://www.drupal.org/project/swftools'), '!flowplayer' => l(t('Flowplayer'), 'http://www.drupal.org/project/flowplayer'))),
+        '#markup' => t('No flash players detected.<br />You need to install !flowplayer or !jwplayer.', array('!flowplayer' => l(t('Flowplayer API'), 'http://www.drupal.org/project/flowplayer'), '!jwplayer' => l(t('JW Player'), 'http://www.drupal.org/project/jw_player'))),
         '#prefix' => '<div class="admin_flv_player_wrapper" id="flv_player_' . $ext . '">',
         '#suffix' => '</div>',
       );
@@ -137,9 +126,9 @@ function video_players_admin_settings() {
     if (!empty($html5_players)) {
       $form['extensions']['video_extension_' . $ext . '_html5_player'] = array(
         '#type' => 'radios',
-        '#title' => t('HTML5 Player for') . ' ' . $ext,
+        '#title' => t('HTML5 player for @extension', array('@extension' => $ext)),
         '#options' => $html5_players,
-        '#markup' => t('Additional HTML5 players module.<br />You can install !VideoJS.', array('!VideoJS' => l(t('Video JS'), 'http://www.drupal.org/project/videojs'))),
+        '#markup' => t('Additional HTML5 players module.<br />You can install !videojs.', array('!videojs' => l(t('Video.js'), 'http://drupal.org/project/videojs'))),
         '#default_value' => variable_get('video_extension_' . $ext . '_html5_player', ''),
         '#prefix' => '<div class="admin_html5_player_wrapper" id="html5_player_' . $ext . '">',
         '#suffix' => '</div>',
@@ -151,7 +140,6 @@ function video_players_admin_settings() {
 
 /**
  * Video Metadata admin settings
- * @return <type>
  */
 function video_metadata_admin_settings() {
   $metadata = new Metadata;
@@ -168,27 +156,26 @@ function video_metadata_admin_settings_validate($form, &$form_state) {
 
 /**
  * Video cron admin settings
- * @return <type>
  */
 function video_cron_admin_settings() {
   $form = array();
   $form['video_cron'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Use Drupals built in cron.'),
+    '#title' => t('Use Drupal\'s built-in cron.'),
     '#default_value' => variable_get('video_cron', TRUE),
-    '#description' => t('If you would like to use Drupals built in cron hook, check this box.  Please be warned that transcoding videos is very resource intensive.  If you use poor mans cron, I highly discourage this option.  I also suggest you setup your cron to call this function through CLI instead of WGET.'),
+    '#description' => t('Check this box to use Drupal\'s built in cron hook. Be aware that video transcoding is very resource-intensive. If you use poor man\'s cron, this option is strongly discouraged. We suggest you set up your cron to call this function through CLI instead of WGET.'),
   );
   $form['video_queue_timeout'] = array(
     '#type' => 'textfield',
     '#title' => t('Video queue timeout (s).'),
     '#default_value' => variable_get('video_queue_timeout', 90),
-    '#description' => t('The maximum time allow a video to complete their transcoding. Put a larger value for larger size video.'),
+    '#description' => t('The maximum time allowed for a video transcode to complete. Use a larger value for larger-sized video.'),
   );
   $form['video_ffmpeg_instances'] = array(
     '#type' => 'textfield',
     '#title' => t('Total videos to convert during each cron process.'),
     '#default_value' => variable_get('video_ffmpeg_instances', 5),
-    '#description' => t('How many videos do you want to process on each cron run?  Either through hook_cron or the video_scheduler.php.'),
+    '#description' => t('How many videos do you want to process on each cron run?  Either through hook_cron or video_scheduler.php.'),
   );
   return system_settings_form($form);
 }

@@ -1,17 +1,14 @@
 <?php
-
-/*
+/**
  * @file
  * Class file used to store metadata on the video.
- * 
  */
 
 class Metadata {
-
   private $metadata;
 
-  public function __construct($metadata = null) {
-    //get our configured transcoder.
+  public function __construct($metadata = NULL) {
+    // get our configured transcoder.
     if (!isset($metadata))
       $metadata = variable_get('video_metadata', 'flvtool2');
     if (!module_load_include('inc', 'video', '/metadata/' . $metadata)) {
@@ -26,7 +23,6 @@ class Metadata {
               require_once $file->filename;
           }
         }
-//
       }
     }
     if (class_exists($metadata)) {
@@ -48,7 +44,7 @@ class Metadata {
       '#type' => 'checkbox',
       '#title' => t('Enable Metadata'),
       '#default_value' => variable_get('video_metadata', FALSE),
-      '#description' => t('Metadata is particularly useful in video, where information about its contents (such as transcripts of conversations and text descriptions of its scenes) are not directly understandable by a computer, but where efficient search is desirable.'),
+      '#description' => t('Metadata is particularly useful in video, where content information (such as conversation transcripts or scene descriptions) are not directly accessible by a computer, but where searchability is desired.'),
     );
     $options = $this->_metadata();
     $form['video_metadata'] = array(
@@ -63,8 +59,8 @@ class Metadata {
     $form = $form + $options['admin_settings'];
     $form['video_metadata_dimensions'] = array(
       '#type' => 'textarea',
-      '#title' => t('Selectable Dimensions when uploading videos'),
-      '#description' => t('Enter one dimension per line as Video Resolutions.  Each resolution must be in the form of WxH where W=Width and H=Height in pixels.  Example dimensions are 1280x720.'),
+      '#title' => t('Available Dimensions for uploaded videos'),
+      '#description' => t('Enter one set of Video Resolution dimensions (for example 1280x720) per line.'),
       '#default_value' => variable_get("video_metadata_dimensions", video_default_dimensions()),
     );
 
