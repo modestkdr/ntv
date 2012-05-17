@@ -1,0 +1,38 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2/swfobject.js"></script>
+<script type="text/javascript">
+  swfobject.embedSWF(
+    'http://www.youtube.com/v/gzDS-Kfd5XQ&enablejsapi=1&rel=0&fs=1',
+    'ytplayer_div',
+    '425',
+    '344',
+    '8',
+    null,
+    null,
+    {
+      allowScriptAccess: 'always',
+      allowFullScreen: 'true'
+    },
+    {
+      id: 'ytplayer_object'
+    }
+  );
+</script>
+<script type="text/javascript">
+  function ytplayer_loadvideo( id ) {
+    var o = document.getElementById( 'ytplayer_object' );
+    if( o ) {
+      o.loadVideoById( id );
+    }
+  }
+</script>
+</head>
+<body>
+<a name="ytplayer"></a>
+<div id="ytplayer_div">You need Flash player 8+ and JavaScript enabled to view this video.</div>
+<div>
+<a href="#ytplayer" onClick="ytplayer_loadvideo( 'gzDS-Kfd5XQ' );"><img src="http://img.youtube.com/vi/OPRgPrZCLms/default.jpg" /></a>
+<a href="#ytplayer" onClick="ytplayer_loadvideo( 'gzDS-Kfd5XQ' );"><img src="http://img.youtube.com/vi/OPRgPrZCLms/default.jpg" /></a>
+<a href="#ytplayer" onClick="ytplayer_loadvideo( 'gzDS-Kfd5XQ' );"><img src="http://img.youtube.com/vi/fZ9WiuJPnNA/default.jpg" /></a>
+</div>
