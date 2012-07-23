@@ -1674,3 +1674,13 @@ div.admin-panel .description {
 #footer-wrapper .poll .bar .foreground {
   background-color: #ddd;
 }
+
+/* CUSTOM */
+.field-name-field-patient-history .field-label, .field-name-field-patient-symptoms .field-label {
+  float:right;
+  padding:0 7% 0 0;
+}
+.field-name-field-patient-history .field-items, .field-name-field-patient-symptoms .field-items {
+  float:right;
+  clear:both;
+ }
