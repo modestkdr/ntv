@@ -130,3 +130,8 @@ DirectoryIndex index.php index.html index.htm
   </IfModule>
 </IfModule>
 
+# Force download of specific file types
+#<FilesMatch "\.(mov|mp3|jpg|pdf)$">
+ # ForceType application/octet-stream
+  # Header set Content-Disposition attachment
+#</FilesMatch>

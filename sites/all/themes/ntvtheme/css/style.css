@@ -28,7 +28,8 @@
 	height:2px;
 }
 #modalContainer {
-	height:auto;
+	height:auto !important;
+  padding: 2px 10px;
 }
 
 
@@ -1684,3 +1685,34 @@ div.admin-panel .description {
   float:right;
   clear:both;
  }
+.download-video {
+  background: #969696;
+  padding:4px 8px;
+  border-radius: 6px;
+  border:2px solid #fcfcfc;
+  color:white;
+  text-decoration: none;
+  font-size: 125%; 
+}
+#frameHoverNav {
+  width:auto;
+}
+.field-name-field-patient-symptoms .field-label, .field-name-field-patient-history .field-label  {
+  background: url('../images/arrow-double-grey-down.png') no-repeat right center;
+
+}
+.jcarousel-container .field .field-label {
+  font-weight: normal;
+  font-size: 9px;
+
+}
+.node-type-patient .jcarousel-skin-default {
+  width:80%;
+  float: right;
+}
+.node-patient .field-name-field-video-mental-status, .node-patient .field-name-field-video-cranial-nerve, 
+.node-patient .field-name-field-video-station-and-gait {
+  width: 20%;
+  float: left;
+  margin-bottom: 34px;
+}
